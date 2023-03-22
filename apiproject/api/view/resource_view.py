@@ -59,6 +59,5 @@ def transferResource(request):
     data = request.data
     resources = User.objects.get(id=1).resource_set.all()
     recserializer = ResourceSerializer(resources, many=True)
-    
     return Response(recserializer.data)
 
