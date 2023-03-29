@@ -38,7 +38,7 @@ def getResource(request, pk):
         serializer = ResourceSerializer(resource, many=False)
         return Response(serializer.data)
     except:
-        return Response("resource not found")
+        return Response("resource not found!!!")
 
 
 @api_view(['PUT'])
