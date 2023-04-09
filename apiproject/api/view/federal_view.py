@@ -17,8 +17,12 @@ def getFederals(request):
 def createFederal(request):
     data = request.data
     try:
+        get_user=User.objects.get(username=data['username'])
+        if get_user:
+            return Response("user already exsist with this username") 
         user= User.objects.create_user(username=data['username'],email=data['email'] ,password=data['password'])
         my_group = Group.objects.get(name='federal')
+        print(my_group)
         my_group.user_set.add(user)
         if user:
             federal = Federal.objects.create(
@@ -30,8 +34,8 @@ def createFederal(request):
         else:
             return Response("user creation failed")   
            
-    except:
-        return Response("something went wrong in the try block") 
+    except Exception as e:
+        return Response(e) 
         
 @api_view(['GET'])
 def getFederal(request, pk):

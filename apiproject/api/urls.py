@@ -4,10 +4,14 @@ from .view import privatesector_view
 from .view import region_view 
 from .view import federal_view 
 from .view import resource_view
-
+from rest_framework_simplejwt.views import (TokenRefreshView,)
 urlpatterns = [
+    
     path('', views.getRoutes, name="routes"),
     path('user/<str:pk>/delete/', views.deleteUser, name="delete-user"),
+
+    path('api/token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 
 

@@ -34,8 +34,8 @@ class RegionSerializer(ModelSerializer):
     created_by= StringRelatedField(many=False)
     class Meta:
         model = Region
-        # fields = '__all__'
-        exclude = ('id', )
+        fields = '__all__'
+        # exclude = ('id', )
 
 class ZoneSerializer(ModelSerializer):
     user = UserSerializer(many=False)
