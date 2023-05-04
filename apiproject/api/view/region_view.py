@@ -1,17 +1,17 @@
 from rest_framework.response import Response
-from django.shortcuts import render
 from django.contrib.auth.models import Group
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.tokens import AccessToken
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from ..decorators import allowed_users
 JWT_authenticator = JWTAuthentication()
 from ..serializers import *
 from ..models import *
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def getRegions(request):
     regions = Region.objects.all()
     serializer = RegionSerializer(regions, many=True)
@@ -27,6 +27,7 @@ def createRegion(request):
             request_user , token = response
             federal_id=request_user.federal.id
             created_By=Federal.objects.get(id=federal_id)
+            # check if user already exsists
             get_user=User.objects.filter(username=data['username'])
             if get_user:
                 return Response("user already exists with this username")
@@ -35,6 +36,15 @@ def createRegion(request):
                 my_group = Group.objects.get(name='region')
                 my_group.user_set.add(user)
                 if user and created_By:
+                    UserProfile.objects.create(
+                    user=user,
+                    fname=data['fname'],
+                    Mname = data['Mname'],
+                    lname =data['lname'],
+                    phone =data['phone'],
+                    sex =data['sex'],
+                    profile =data['profile']
+                    )
                     region = Region.objects.create(
                         user=user,
                         Region_name=data['region_name'],

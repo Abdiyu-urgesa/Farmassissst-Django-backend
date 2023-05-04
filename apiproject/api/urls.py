@@ -36,6 +36,10 @@ urlpatterns = [
     path('private/<str:pk>', privatesector_view.getprivateSector, name="get-one-private"),
     path('private/<str:pk>/update/', privatesector_view.updatePrivateSector, name="update-private"),
 
+    path('resources/', resource_view.getResources, name="get-all-resource"),
+    path('sentresources/', resource_view.getSentResource, name="get-all-sent-resource"),
+    path('recievedresources/', resource_view.getrecievedResource, name="get-all-recieved-resource"),
+    path('resource/', resource_view.getResource, name="get-one-resource"),
     path('transfer/', resource_view.transferResource, name="transfer-resource"),
     
 

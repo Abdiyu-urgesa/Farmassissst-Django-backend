@@ -24,10 +24,24 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.name
+    
+class SentResource(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    type = models.CharField(max_length=200, null=True)
+    status = models.CharField(max_length=200, null=True)
+    amount = models.CharField(max_length=200, null=True)
+    price_perKilo = models.CharField(max_length=200, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    sender = models.CharField(max_length=200, null=True)
+    reciever = models.CharField(max_length=200, null=True)
 
+    def __str__(self):
+        return self.name
+    
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     fname = models.CharField(max_length=200, null=True)
     Mname = models.CharField(max_length=200, null=True)
     lname = models.CharField(max_length=200, null=True)

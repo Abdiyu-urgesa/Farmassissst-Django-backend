@@ -96,6 +96,10 @@ class ResourceSerializer(ModelSerializer):
     class Meta:
         model = Resource
         fields = '__all__'
+class SentResourceSerializer(ModelSerializer):
+    class Meta:
+        model = SentResource
+        fields = '__all__'
 
 
 
