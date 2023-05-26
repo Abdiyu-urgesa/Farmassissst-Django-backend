@@ -61,7 +61,7 @@ def updateResource(request, pk):
     if serializer.is_valid():
         serializer.save()
     else:
-        return Response(serializer.errors)
+        return Response(serializer.errors) 
     
     return Response(serializer.data)
 

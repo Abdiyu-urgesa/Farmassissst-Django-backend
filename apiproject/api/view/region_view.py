@@ -1,8 +1,8 @@
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from ..decorators import allowed_users
 JWT_authenticator = JWTAuthentication()
@@ -19,6 +19,8 @@ def getRegions(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def createRegion(request):
     data = request.data
     response = JWT_authenticator.authenticate(request)
@@ -65,6 +67,8 @@ def createRegion(request):
    
         
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def getRegion(request, pk):
     try:
         region = Region.objects.get(id=pk)
@@ -75,6 +79,8 @@ def getRegion(request, pk):
 
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def updatRegion(request, pk):
     data = request.data
     region = Region.objects.get(id=pk)
