@@ -88,6 +88,7 @@ def updatRegion(request, pk):
     if serializer.is_valid():
         serializer.save()
     else:
+        print("its me")
         return Response(serializer.errors)
     return Response(serializer.data)
 
